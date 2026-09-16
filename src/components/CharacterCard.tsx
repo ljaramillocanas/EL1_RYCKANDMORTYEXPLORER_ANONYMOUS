@@ -2,7 +2,7 @@ import type { Character } from "../types/character"
 
 
 function CharacterCard({
-    id,
+
     name,
     status,
     species,

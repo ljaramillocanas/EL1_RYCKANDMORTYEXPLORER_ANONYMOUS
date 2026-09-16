@@ -8,3 +8,54 @@
 .character-card img {
     width: 100%;
 }
+
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+button {
+    text-align: center;
+}
+
+body {
+    background-color: #20232a;
+    color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+button {
+    background-color: #61dafb;
+    color: #20232a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4fc3e8;
+}
+
+button:disabled {
+    background-color: #777;
+    cursor: not-allowed;
+}
+
+.discovered-count {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.discovered-count strong {
+    font-size: 18px;
+    margin-left: 5px;
+    color: rgb(241, 109, 0);
+}

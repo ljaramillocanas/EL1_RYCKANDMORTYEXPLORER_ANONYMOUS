@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import CharacterCard from './components/CharacterCard'
 import type { Character } from './types/character'
-import './App.css'
+import './app.css'
 
 function App() {
 
@@ -46,7 +46,9 @@ function App() {
     <>
       <h1>Rick & Morty Explorer</h1>
 
-      <p>Personajes descubiertos: {visibleCharacters.length}</p>
+      <p className="discovered-count">
+        Personajes descubiertos: <strong>{visibleCharacters.length}</strong>
+      </p>
 
       <button
         onClick={descubrirPersonajes}
@@ -57,31 +59,29 @@ function App() {
           : "Descubrir personajes"}
       </button>
 
-      {loading ? (
-        <p>Cargando personajes...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : characters.length === 0 ? (
-        <p>No se encontraron personajes.</p>
-      ) : (
-        visibleCharacters.map((character) => (
-          <CharacterCard
-            image={character.image}
-            id={character.id}
-            name={character.name}
-            status={character.status}
-            species={character.species}
-            gender={character.gender} />
-        ))
-      )}
-
-
+      <div className="characters-grid">
+        {loading ? (
+          <p>Cargando personajes...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : characters.length === 0 ? (
+          <p>No se encontraron personajes.</p>
+        ) : (
+          visibleCharacters.map((character) => (
+            <CharacterCard
+              image={character.image}
+              id={character.id}
+              name={character.name}
+              status={character.status}
+              species={character.species}
+              gender={character.gender} />
+          ))
+        )}
+      </div>
 
     </>
 
-
   )
-
 }
 
 
