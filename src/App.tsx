@@ -5,37 +5,82 @@ import type { Character } from './types/character'
 function App() {
 
   const [characters, setCharacters] = useState<Character[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [visibleCount, setVisibleCount] = useState(0)
+
+  function descubrirPersonajes() {
+    if (visibleCount < characters.length) {
+      setVisibleCount(visibleCount + 4)
+    }
+  }
 
   useEffect(() => {
     async function getCharacter() {
-      const response = await fetch(
-        "https://rickandmortyapi.com/api/character"
-      )
+      try {
+        const response = await fetch(
+          "https://rickandmortyapi.com/api/character"
+        )
 
-      const data = await response.json()
+        if (!response.ok) {
+          throw new Error("Error al obtener personajes")
+        }
 
-      setCharacters(data.results)
+        const data = await response.json()
+
+        setCharacters(data.results)
+      } catch (error) {
+        setError("No se pudieron cargar los personajes")
+      } finally {
+        setLoading(false)
+      }
     }
+
     getCharacter()
   }, [])
+
+  const visibleCharacters = characters.slice(0, visibleCount)
 
   return (
     <>
       <h1>Rick & Morty Explorer</h1>
 
-      <p>Personajes descubiertos: {characters.length}</p>
+      <p>Personajes descubiertos: {visibleCharacters.length}</p>
 
-      {characters.map((character) => (
-        <CharacterCard
-          id={character.id}
-          name={character.name}
-          status={character.status}
-          species={character.species}
-          gender={character.gender}
-        />
-      ))}
+      <button
+        onClick={descubrirPersonajes}
+        disabled={visibleCount >= characters.length}
+      >
+        {visibleCount >= characters.length
+          ? "Todos los personajes descubiertos"
+          : "Descubrir personajes"}
+      </button>
+
+      {loading ? (
+        <p>Cargando personajes...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : characters.length === 0 ? (
+        <p>No se encontraron personajes.</p>
+      ) : (
+        visibleCharacters.map((character) => (
+          <CharacterCard
+            id={character.id}
+            name={character.name}
+            status={character.status}
+            species={character.species}
+            gender={character.gender} />
+        ))
+      )}
+
+
+
     </>
+
+
   )
+
 }
+
 
 export default App
