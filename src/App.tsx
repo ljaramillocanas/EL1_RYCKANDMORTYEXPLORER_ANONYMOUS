@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import CharacterCard from './components/CharacterCard'
 import type { Character } from './types/character'
+import './App.css'
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
       ) : (
         visibleCharacters.map((character) => (
           <CharacterCard
+            image={character.image}
             id={character.id}
             name={character.name}
             status={character.status}
