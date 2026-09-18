@@ -37,3 +37,9 @@
 - Creé el issue correspondiente a RF-04.
 - Creé la rama feature/rf04-detalle a partir de feature/rf03-busqueda.
 - Inicié el análisis de la selección de una carta y la vista de detalle.
+- Implementé la selección de una carta mediante un estado Character | null.
+- Añadí una función onSelect tipada para comunicar CharacterCard con App.
+- Creé CharacterDetail para mostrar información adicional del personaje.
+- Implementé el botón para volver a la colección.
+- Corregí las props de CharacterCard para que solo exijan los datos que utiliza.
+- Verifiqué npm run lint y npm run build sin errores.
