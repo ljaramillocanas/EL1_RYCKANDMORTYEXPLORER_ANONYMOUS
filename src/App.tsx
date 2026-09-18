@@ -11,6 +11,8 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(0)
   const [searchText, setSearchText] = useState<string>("")
+  const [debouncedSearchText, setDebouncedSearchText] = useState<string>("")
+
 
   function descubrirPersonajes() {
     if (visibleCount < characters.length) {
@@ -44,6 +46,20 @@ function App() {
 
   const visibleCharacters = characters.slice(0, visibleCount)
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedSearchText(searchText)
+    }, 400)
+
+    return () => clearTimeout(timeoutId)
+  }, [searchText])
+
+  const filteredCharacters = visibleCharacters.filter((character) =>
+  character.name
+    .toLowerCase()
+    .includes(debouncedSearchText.toLowerCase())
+)
+
   return (
     <>
       <h1>Rick & Morty Explorer</h1>
@@ -73,8 +89,13 @@ function App() {
           <p>{error}</p>
         ) : characters.length === 0 ? (
           <p>No se encontraron personajes.</p>
-        ) : (
-          visibleCharacters.map((character) => (
+        ) 
+          : debouncedSearchText.trim() !== "" &&
+             filteredCharacters.length === 0 ? (
+          <p>No hay personajes en tu colección que coincidan con la búsqueda.</p>
+        ) 
+        : (
+          filteredCharacters.map((character) => (
             <CharacterCard
               image={character.image}
               id={character.id}
