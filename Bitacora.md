@@ -16,3 +16,9 @@
 -Identifiqué que será necesario diferenciar el catálogo recibido de la API de la colección del usuario. Se utilizará el id que ya entrega la API para identificar cada personaje y una cantidad para representar las copias repetidas.
 - No realicé commit hoy porque estoy esperando la integración de RF-01 y RF-02 y validando con el equipo las reglas de colección.
 
+## 2026-09-17 - Julian Agredo
+
+- Creé la rama feature/rf03-busqueda a partir del código que contiene RF-01 y RF-02.
+- Creé el issue correspondiente a RF-03.
+- Inicié el requisito analizando cómo funciona un input controlado en React.
+- Identifiqué que se necesita un estado para guardar inmediatamente el texto escrito por el usuario.
