@@ -89,7 +89,12 @@ function App() {
           <p>{error}</p>
         ) : characters.length === 0 ? (
           <p>No se encontraron personajes.</p>
-        ) : (
+        ) 
+          : debouncedSearchText.trim() !== "" &&
+             filteredCharacters.length === 0 ? (
+          <p>No hay personajes en tu colección que coincidan con la búsqueda.</p>
+        ) 
+        : (
           filteredCharacters.map((character) => (
             <CharacterCard
               image={character.image}
