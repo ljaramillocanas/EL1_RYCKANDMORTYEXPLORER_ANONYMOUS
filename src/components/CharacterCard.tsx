@@ -1,6 +1,10 @@
-import type { Character } from "../types/character"
 
-interface CharacterCardProps extends Character {
+interface CharacterCardProps {
+  name: string
+  status: string
+  species: string
+  gender: string
+  image: string
   onSelect: () => void
 }
 
