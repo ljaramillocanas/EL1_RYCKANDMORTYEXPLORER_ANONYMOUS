@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import CharacterCard from './components/CharacterCard'
 import type { Character } from './types/character'
 import './app.css'
+import SearchBar from './components/SearchBar'
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(0)
+  const [searchText, setSearchText] = useState<string>("")
 
   function descubrirPersonajes() {
     if (visibleCount < characters.length) {
@@ -30,7 +32,7 @@ function App() {
         const data = await response.json()
 
         setCharacters(data.results)
-      } catch (error) {
+      } catch {
         setError("No se pudieron cargar los personajes")
       } finally {
         setLoading(false)
@@ -59,6 +61,11 @@ function App() {
           : "Descubrir personajes"}
       </button>
 
+      <SearchBar
+        value={searchText}
+        onChange={setSearchText}
+        />
+        
       <div className="characters-grid">
         {loading ? (
           <p>Cargando personajes...</p>
