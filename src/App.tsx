@@ -12,6 +12,7 @@ function App() {
   const [visibleCount, setVisibleCount] = useState(0)
   const [searchText, setSearchText] = useState<string>("")
   const [debouncedSearchText, setDebouncedSearchText] = useState<string>("")
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null)
 
 
   function descubrirPersonajes() {
@@ -97,12 +98,15 @@ function App() {
         : (
           filteredCharacters.map((character) => (
             <CharacterCard
+              key={character.id}
               image={character.image}
               id={character.id}
               name={character.name}
               status={character.status}
               species={character.species}
-              gender={character.gender} />
+              gender={character.gender} 
+              onSelect={() => setSelectedCharacter(character)}
+              />
           ))
         )}
       </div>
