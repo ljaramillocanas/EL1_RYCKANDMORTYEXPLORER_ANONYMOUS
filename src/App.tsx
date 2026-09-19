@@ -74,6 +74,7 @@ function App() {
   useEffect(() => {
     const controller = new AbortController()
     setError(null)
+    setLoading(true)
     async function getCharacter() {
       try {
         const response = await fetch(
