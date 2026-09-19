@@ -11,4 +11,4 @@ function FavoriteCounter({ count }: FavoriteCounterProps) {
     )
 }
 
-export default FavoriteCounter
+export default FavoriteCounter;

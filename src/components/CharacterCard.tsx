@@ -1,14 +1,17 @@
-import type { Character } from "../types/character"
+import type { CharacterProps } from "../types/CharacterProps"
+import FavoriteButton from "./FavoriteButton"
 
 
 function CharacterCard({
-
+    id,
     name,
     status,
     species,
     gender,
-    image
-}: Character) {
+    image,
+    isFavorite,
+    onToggleFavorite
+}: CharacterProps) {
     return (
         <div className="character-card">
             <img src={image} alt={name} />
@@ -16,7 +19,15 @@ function CharacterCard({
             <p>Estado: {status}</p>
             <p>Especie: {species}</p>
             <p>Genero: {gender}</p>
+
+
+            <FavoriteButton
+                characterId={id}
+                isFavorite={isFavorite}
+                onToggle={onToggleFavorite}
+            />
         </div>
+
     )
 }
 

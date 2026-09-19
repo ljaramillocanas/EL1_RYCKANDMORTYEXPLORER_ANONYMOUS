@@ -32,16 +32,17 @@ function loadFavoriteIds(): number[] {
 }
 
 
-
-
 function App() {
-
+  const [favoriteIds, setFavoriteIds] = useState<number[]>(loadFavoriteIds)
   const [characters, setCharacters] = useState<Character[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(0)
   const [searchText, setSearchText] = useState<string>("")
-  const [favoriteIds, setFavoriteIds] = useState<number[]>(loadFavoriteIds)
+
+  useEffect(() => {
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteIds))
+  }, [favoriteIds])
 
   function descubrirPersonajes() {
     if (visibleCount < characters.length) {
@@ -49,8 +50,8 @@ function App() {
     }
   }
   function toggleFavorite(characterId: number) {
-    setFavoriteIds(currentFavoriteIds) => {
-      const isAlreadyFavorite = currentFavoriteIds.includes(characterId);
+    setFavoriteIds((currentFavoriteIds) => {
+      const isAlreadyFavorite = currentFavoriteIds.includes(characterId)
 
       if (isAlreadyFavorite) {
         return currentFavoriteIds.filter(
@@ -59,7 +60,7 @@ function App() {
       }
 
       return [...currentFavoriteIds, characterId]
-    }
+    })
   }
 
   useEffect(() => {
@@ -96,6 +97,8 @@ function App() {
         Personajes descubiertos: <strong>{visibleCharacters.length}</strong>
       </p>
 
+      <FavoriteCounter count={favoriteIds.length} />
+
       <button
         onClick={descubrirPersonajes}
         disabled={visibleCount >= characters.length}
@@ -120,12 +123,15 @@ function App() {
         ) : (
           visibleCharacters.map((character) => (
             <CharacterCard
-              image={character.image}
               id={character.id}
+              image={character.image}
               name={character.name}
               status={character.status}
               species={character.species}
-              gender={character.gender} />
+              gender={character.gender}
+              isFavorite={favoriteIds.includes(character.id)}
+              onToggleFavorite={toggleFavorite}
+            />
           ))
         )}
       </div>
