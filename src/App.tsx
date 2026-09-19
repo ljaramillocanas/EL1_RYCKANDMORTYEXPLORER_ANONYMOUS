@@ -3,6 +3,36 @@ import CharacterCard from './components/CharacterCard'
 import type { Character } from './types/character'
 import './app.css'
 import SearchBar from './components/SearchBar'
+import FavoriteCounter from "./components/FavoriteCounter"
+
+const FAVORITES_STORAGE_KEY = "rick-and-morty-favorites"
+
+
+function loadFavoriteIds(): number[] {
+  try {
+    const storedFavorites = localStorage.getItem(FAVORITES_STORAGE_KEY)
+
+    if (storedFavorites === null) {
+      return []
+    }
+
+    const parsedFavorites: unknown = JSON.parse(storedFavorites)
+
+    if (!Array.isArray(parsedFavorites)) {
+      return []
+    }
+
+    return parsedFavorites.filter((characterId): characterId is number =>
+      typeof characterId === 'number'
+    )
+
+  } catch {
+    return []
+  }
+}
+
+
+
 
 function App() {
 
@@ -11,10 +41,24 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(0)
   const [searchText, setSearchText] = useState<string>("")
+  const [favoriteIds, setFavoriteIds] = useState<number[]>(loadFavoriteIds)
 
   function descubrirPersonajes() {
     if (visibleCount < characters.length) {
       setVisibleCount(visibleCount + 4)
+    }
+  }
+  function toggleFavorite(characterId: number) {
+    setFavoriteIds(currentFavoriteIds) => {
+      const isAlreadyFavorite = currentFavoriteIds.includes(characterId);
+
+      if (isAlreadyFavorite) {
+        return currentFavoriteIds.filter(
+          (favoriteId) => favoriteId !== characterId
+        )
+      }
+
+      return [...currentFavoriteIds, characterId]
     }
   }
 
@@ -64,8 +108,8 @@ function App() {
       <SearchBar
         value={searchText}
         onChange={setSearchText}
-        />
-        
+      />
+
       <div className="characters-grid">
         {loading ? (
           <p>Cargando personajes...</p>
