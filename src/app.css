@@ -59,3 +59,38 @@ button:disabled {
     margin-left: 5px;
     color: rgb(241, 109, 0);
 }
+
+.favorite-counter {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.favorite-counter strong {
+    color: #61dafb;
+}
+
+.favorite-button {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #61dafb;
+    color: #20232a;
+}
+
+.favorite-button.is-favorite {
+    background-color: #f6c945;
+    color: #20232a;
+}
+
+.error-state {
+    margin: 24px auto;
+    padding: 20px;
+    max-width: 480px;
+    border: 1px solid #e85d5d;
+    border-radius: 8px;
+    background-color: #3a2020;
+    text-align: center;
+}
+
+.error-state p {
+    margin-top: 0;
+}

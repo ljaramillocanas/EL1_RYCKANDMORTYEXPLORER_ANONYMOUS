@@ -1,3 +1,4 @@
+
 export interface Character {
   id: number
   name: string
@@ -5,4 +6,14 @@ export interface Character {
   species: string
   gender: string
   image: string
+  type: string
+  origin: {
+    name: string
+
+  }
+  location: {
+    name: string
+  }
+  episode: string[]
 }
+
