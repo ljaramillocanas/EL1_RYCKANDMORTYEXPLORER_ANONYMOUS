@@ -1,3 +1,39 @@
+**## 2026-09-15 - Julian Agredo**
+
+**### Trabajo realizado**
+
+- Revisé y retomé la implementación de RF-01 y RF-02 sobre el proyecto Rick & Morty Explorer.
+- Creé y configuré el proyecto utilizando React con TypeScript y Vite.
+- Definí la estructura inicial del proyecto separando componentes, tipos y estilos.
+- Creé el componente `CharacterCard` para representar individualmente la información de cada personaje.
+- Creé la interfaz `Character` para tipar los datos utilizados por las tarjetas.
+- Implementé el consumo de la API de Rick and Morty mediante `fetch` y `useEffect`.
+- Implementé el almacenamiento de los personajes obtenidos mediante `useState`.
+- Implementé los estados de carga, error y ausencia de resultados.
+- Implementé el uso de `try`, `catch` y `finally` para controlar el resultado de la consulta a la API.
+- Implementé el listado dinámico de personajes utilizando `map()`.
+- Implementé la visualización progresiva de personajes mediante un contador, mostrando 4 personajes adicionales por cada lanzamiento.
+- Implementé el uso de `slice()` para controlar la cantidad de personajes visibles.
+- Añadí las imágenes de los personajes utilizando el campo `image` proporcionado por la API.
+- Organicé las tarjetas mediante CSS Grid para mostrar los personajes en una cuadrícula.
+- Añadí estilos básicos al fondo, botón y contador de personajes descubiertos.
+- Revisé y corregí la referencia al archivo de estilos `App.css`, permitiendo que los estilos de la cuadrícula y las tarjetas se aplicaran correctamente.
+
+**### Conceptos trabajados**
+
+- Uso de `useState` para manejar estados en React.
+- Uso de `useEffect` para ejecutar la consulta a la API al cargar el componente.
+- Uso de interfaces de TypeScript para definir la estructura de los personajes.
+- Uso de `async` y `await` para trabajar con operaciones asíncronas.
+- Uso de `fetch` para consumir una API externa.
+- Conversión de la respuesta mediante `response.json()`.
+- Uso de `map()` para generar componentes dinámicamente.
+- Uso de `slice()` para controlar los elementos visibles.
+- Uso de props para enviar información desde `App` hacia `CharacterCard`.
+- Manejo de estados mediante condiciones para representar carga, error, ausencia de resultados y contenido exitoso.
+
+
+
 ## 2026-09-16 - Julian Agredo
 
 - Revisé la estructura actual del proyecto y las ramas disponibles.
