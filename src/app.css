@@ -80,3 +80,17 @@ button:disabled {
     background-color: #f6c945;
     color: #20232a;
 }
+
+.error-state {
+    margin: 24px auto;
+    padding: 20px;
+    max-width: 480px;
+    border: 1px solid #e85d5d;
+    border-radius: 8px;
+    background-color: #3a2020;
+    text-align: center;
+}
+
+.error-state p {
+    margin-top: 0;
+}

@@ -5,6 +5,7 @@ import SearchBar from './components/SearchBar'
 import FavoriteCounter from "./components/FavoriteCounter"
 import CharacterDetail from "./components/CharacterDetail"
 import type { Character } from './types/character'
+import ErrorState from './components/ErrorState'
 const FAVORITES_STORAGE_KEY = "rick-and-morty-favorites"
 
 
@@ -38,6 +39,7 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(0)
   const [searchText, setSearchText] = useState<string>("")
+  const [retryCount, setRetryCount] = useState(0)
 
   useEffect(() => {
     localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteIds))
@@ -64,12 +66,21 @@ function App() {
       return [...currentFavoriteIds, characterId]
     })
   }
+  function retryRequest() {
+    setRetryCount((currentCount) => currentCount + 1)
+  }
 
+  // Se actualiza rf0-1 para aplicacion de rf06
   useEffect(() => {
+    const controller = new AbortController()
+    setError(null)
     async function getCharacter() {
       try {
         const response = await fetch(
-          "https://rickandmortyapi.com/api/character"
+          "https://rickandmortyapi.com/api/character",
+          {
+            signal: controller.signal
+          }
         )
 
         if (!response.ok) {
@@ -80,14 +91,22 @@ function App() {
 
         setCharacters(data.results)
       } catch {
-        setError("No se pudieron cargar los personajes")
+        if (!controller.signal.aborted)
+          setError("No se pudieron cargar los personajes")
       } finally {
-        setLoading(false)
+        if (!controller.signal.aborted) {
+          setLoading(false)
+        }
+
       }
     }
 
     getCharacter()
-  }, [])
+
+    return () => {
+      controller.abort()
+    }
+  }, [retryCount])
 
   const visibleCharacters = characters.slice(0, visibleCount)
 
@@ -141,7 +160,10 @@ function App() {
         {loading ? (
           <p>Cargando personajes...</p>
         ) : error ? (
-          <p>{error}</p>
+          <ErrorState
+            message={error}
+            onRetry={retryRequest}
+          />
         ) : characters.length === 0 ? (
           <p>No se encontraron personajes.</p>
         )
