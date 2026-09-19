@@ -9,7 +9,7 @@
 
 ## 2026-09-17 - Julian Agredo
 
-- Definí una propuesta de experiencia: el usuario abre cofres y recibe cartas de personajes aleatorias.
+- Definimos una propuesta de experiencia: el usuario abre cofres y recibe cartas de personajes aleatorias.
 - Propuse permitir cartas repetidas dentro de la colección.
 - Propuse que la búsqueda filtre únicamente las cartas que el usuario ya obtuvo.
 - Propuse representar los personajes no obtenidos como cartas oscuras dentro de un catálogo o álbum.
@@ -22,3 +22,24 @@
 - Creé el issue correspondiente a RF-03.
 - Inicié el requisito analizando cómo funciona un input controlado en React.
 - Identifiqué que se necesita un estado para guardar inmediatamente el texto escrito por el usuario.
+
+## 2026-09-18 - Julian Agredo
+
+- Implementé un segundo estado para retrasar la búsqueda.
+- Usé setTimeout dentro de useEffect con una espera de 400 ms.
+- Añadí clearTimeout para cancelar la búsqueda anterior cuando el usuario continúa escribiendo.
+- Filtré los personajes visibles utilizando el texto retardado.
+- Queda pendiente mostrar el mensaje cuando no existen coincidencias y realizar las pruebas finales.
+
+## 2026-09-18 - Julian Agredo
+
+- Terminé las pruebas de RF-03 y abrí el Pull Request hacia develop.
+- Creé el issue correspondiente a RF-04.
+- Creé la rama feature/rf04-detalle a partir de feature/rf03-busqueda.
+- Inicié el análisis de la selección de una carta y la vista de detalle.
+- Implementé la selección de una carta mediante un estado Character | null.
+- Añadí una función onSelect tipada para comunicar CharacterCard con App.
+- Creé CharacterDetail para mostrar información adicional del personaje.
+- Implementé el botón para volver a la colección.
+- Corregí las props de CharacterCard para que solo exijan los datos que utiliza.
+- Verifiqué npm run lint y npm run build sin errores.

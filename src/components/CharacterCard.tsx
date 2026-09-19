@@ -1,17 +1,24 @@
+
+interface CharacterCardProps {
+    name: string
+    status: string
+    species: string
+    gender: string
+    image: string
+    onSelect: () => void
+}
 import type { CharacterProps } from "../types/CharacterProps"
 import FavoriteButton from "./FavoriteButton"
 
 
 function CharacterCard({
-    id,
     name,
     status,
     species,
     gender,
     image,
-    isFavorite,
-    onToggleFavorite
-}: CharacterProps) {
+    onSelect
+}: CharacterCardProps) {
     return (
         <div className="character-card">
             <img src={image} alt={name} />
@@ -20,14 +27,10 @@ function CharacterCard({
             <p>Especie: {species}</p>
             <p>Genero: {gender}</p>
 
-
-            <FavoriteButton
-                characterId={id}
-                isFavorite={isFavorite}
-                onToggle={onToggleFavorite}
-            />
+            <button onClick={onSelect}>
+                Ver detalle
+            </button>
         </div>
-
     )
 }
 

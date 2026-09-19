@@ -31,6 +31,7 @@ function loadFavoriteIds(): number[] {
   }
 }
 
+import CharacterDetail from "./components/CharacterDetail"
 
 function App() {
   const [favoriteIds, setFavoriteIds] = useState<number[]>(loadFavoriteIds)
@@ -43,6 +44,9 @@ function App() {
   useEffect(() => {
     localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteIds))
   }, [favoriteIds])
+  const [debouncedSearchText, setDebouncedSearchText] = useState<string>("")
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null)
+
 
   function descubrirPersonajes() {
     if (visibleCount < characters.length) {
@@ -89,6 +93,28 @@ function App() {
 
   const visibleCharacters = characters.slice(0, visibleCount)
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedSearchText(searchText)
+    }, 400)
+
+    return () => clearTimeout(timeoutId)
+  }, [searchText])
+
+  const filteredCharacters = visibleCharacters.filter((character) =>
+    character.name
+      .toLowerCase()
+      .includes(debouncedSearchText.toLowerCase())
+  )
+  if (selectedCharacter) {
+    return (
+      <CharacterDetail
+        character={selectedCharacter}
+        onBack={() => setSelectedCharacter(null)}
+      />
+    )
+  }
+
   return (
     <>
       <h1>Rick & Morty Explorer</h1>
@@ -120,20 +146,29 @@ function App() {
           <p>{error}</p>
         ) : characters.length === 0 ? (
           <p>No se encontraron personajes.</p>
-        ) : (
-          visibleCharacters.map((character) => (
-            <CharacterCard
-              id={character.id}
-              image={character.image}
-              name={character.name}
-              status={character.status}
-              species={character.species}
-              gender={character.gender}
-              isFavorite={favoriteIds.includes(character.id)}
-              onToggleFavorite={toggleFavorite}
-            />
-          ))
-        )}
+        )
+          : debouncedSearchText.trim() !== "" &&
+            filteredCharacters.length === 0 ? (
+            <p>No hay personajes en tu colección que coincidan con la búsqueda.</p>
+          )
+            : (
+              filteredCharacters.map((character) => (
+                <CharacterCard
+                  id={character.id}
+                  key={character.id}
+                  image={character.image}
+                  name={character.name}
+                  status={character.status}
+                  species={character.species}
+                  gender={character.gender}
+                  isFavorite={favoriteIds.includes(character.id)}
+                  onToggleFavorite={toggleFavorite}
+                  onSelect={() => setSelectedCharacter(character)}
+
+                />
+
+              ))
+            )}
       </div>
 
     </>
