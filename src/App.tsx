@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import CharacterCard from './components/CharacterCard'
-import type { Character } from './types/character'
 import './app.css'
 import SearchBar from './components/SearchBar'
 import FavoriteCounter from "./components/FavoriteCounter"
-
+import CharacterDetail from "./components/CharacterDetail"
+import type { Character } from './types/character'
 const FAVORITES_STORAGE_KEY = "rick-and-morty-favorites"
 
 
@@ -30,8 +30,6 @@ function loadFavoriteIds(): number[] {
     return []
   }
 }
-
-import CharacterDetail from "./components/CharacterDetail"
 
 function App() {
   const [favoriteIds, setFavoriteIds] = useState<number[]>(loadFavoriteIds)
@@ -154,17 +152,11 @@ function App() {
             : (
               filteredCharacters.map((character) => (
                 <CharacterCard
-                  id={character.id}
                   key={character.id}
-                  image={character.image}
-                  name={character.name}
-                  status={character.status}
-                  species={character.species}
-                  gender={character.gender}
+                  character={character}
                   isFavorite={favoriteIds.includes(character.id)}
                   onToggleFavorite={toggleFavorite}
                   onSelect={() => setSelectedCharacter(character)}
-
                 />
 
               ))

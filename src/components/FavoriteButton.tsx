@@ -1,4 +1,4 @@
-import type { FavoriteButtonProps } from "../types/FavoriteButtonPropos";
+import type { FavoriteButtonProps } from "../types/favoriteButtonPropos";
 
 function FavoriteButton({ characterId,
     isFavorite,

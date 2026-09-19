@@ -7,12 +7,13 @@ export interface Character {
   gender: string
   image: string
   type: string
-   origin: {
-  name: string
-}
-location: {
-  name: string
-}
-episode: string[]
+  origin: {
+    name: string
+
+  }
+  location: {
+    name: string
+  }
+  episode: string[]
 }
 
