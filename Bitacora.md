@@ -30,3 +30,16 @@
 - Añadí clearTimeout para cancelar la búsqueda anterior cuando el usuario continúa escribiendo.
 - Filtré los personajes visibles utilizando el texto retardado.
 - Queda pendiente mostrar el mensaje cuando no existen coincidencias y realizar las pruebas finales.
+
+## 2026-09-18 - Julian Agredo
+
+- Terminé las pruebas de RF-03 y abrí el Pull Request hacia develop.
+- Creé el issue correspondiente a RF-04.
+- Creé la rama feature/rf04-detalle a partir de feature/rf03-busqueda.
+- Inicié el análisis de la selección de una carta y la vista de detalle.
+- Implementé la selección de una carta mediante un estado Character | null.
+- Añadí una función onSelect tipada para comunicar CharacterCard con App.
+- Creé CharacterDetail para mostrar información adicional del personaje.
+- Implementé el botón para volver a la colección.
+- Corregí las props de CharacterCard para que solo exijan los datos que utiliza.
+- Verifiqué npm run lint y npm run build sin errores.

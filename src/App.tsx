@@ -3,6 +3,7 @@ import CharacterCard from './components/CharacterCard'
 import type { Character } from './types/character'
 import './app.css'
 import SearchBar from './components/SearchBar'
+import CharacterDetail from "./components/CharacterDetail"
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
   const [visibleCount, setVisibleCount] = useState(0)
   const [searchText, setSearchText] = useState<string>("")
   const [debouncedSearchText, setDebouncedSearchText] = useState<string>("")
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null)
 
 
   function descubrirPersonajes() {
@@ -59,6 +61,14 @@ function App() {
     .toLowerCase()
     .includes(debouncedSearchText.toLowerCase())
 )
+  if (selectedCharacter) {
+    return (
+      <CharacterDetail
+        character={selectedCharacter}
+        onBack={() => setSelectedCharacter(null)}
+    />
+  )
+}
 
   return (
     <>
@@ -97,12 +107,14 @@ function App() {
         : (
           filteredCharacters.map((character) => (
             <CharacterCard
+              key={character.id}
               image={character.image}
-              id={character.id}
               name={character.name}
               status={character.status}
               species={character.species}
-              gender={character.gender} />
+              gender={character.gender} 
+              onSelect={() => setSelectedCharacter(character)}
+              />
           ))
         )}
       </div>
