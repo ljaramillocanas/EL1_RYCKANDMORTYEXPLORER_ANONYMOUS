@@ -1,4 +1,4 @@
-**## 2026-09-15 - Julian Agredo**
+**## 2026-09-15 - Luis Fernando Jaramillo C**
 
 **### Trabajo realizado**
 
